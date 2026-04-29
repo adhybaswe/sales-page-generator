@@ -42,7 +42,7 @@ jobs:
       - name: Deploy to VPS via Rsync
         uses: Burnett01/rsync-deployments@7.0.1
         with:
-          switches: -vrtz --delete --no-perms --no-owner --no-group
+          switches: -rlz --delete
           path: ./
           remote_path: ${{ secrets.STAGING_PATH }}
           remote_host: ${{ secrets.REMOTE_HOST }}
@@ -52,6 +52,7 @@ jobs:
           exclude: |
             .env
             storage/
+            bootstrap/cache/
             .git/
             .gitignore
 
