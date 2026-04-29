@@ -1,0 +1,71 @@
+name: Deploy to Staging (CI Build)
+
+on:
+  push:
+    branches: [ "staging" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite
+          coverage: none
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install NPM Dependencies & Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Prepare Deployment
+        run: |
+          # Hapus file yang tidak perlu dikirim ke server
+          rm -rf node_modules
+          rm -rf tests
+          rm -rf .github
+
+      - name: Deploy to VPS via Rsync
+        uses: Burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avzr --delete
+          path: ./
+          remote_path: ${{ secrets.STAGING_PATH }}
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_user: ${{ secrets.REMOTE_USER }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Abaikan folder yang tidak boleh tertimpa (storage, .env)
+          exclude: |
+            .env
+            storage/
+            .git/
+            .gitignore
+
+      - name: Post-deployment Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.STAGING_PATH }}
+            # Perbaiki permission storage (jika perlu)
+            chmod -R 775 storage bootstrap/cache
+            # Jalankan migrasi dan optimasi
+            php artisan migrate --force
+            php artisan optimize
+            echo "🚀 Staging updated successfully with CI artifacts!"
