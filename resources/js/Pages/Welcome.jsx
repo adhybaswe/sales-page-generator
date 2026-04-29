@@ -1,4 +1,5 @@
 import { Link, Head } from '@inertiajs/react';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 
 export default function Welcome({ auth }) {
     return (
@@ -7,14 +8,9 @@ export default function Welcome({ auth }) {
             
             {/* Navigation */}
             <nav className="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
-                <div className="flex items-center space-x-3 group">
-                    <div className="w-10 h-10 bg-brand-dark rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg">
-                        <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-                           <path d="M12 2L2 22h20L12 2zm0 4.2l6.9 13.8H5.1L12 6.2z"/>
-                        </svg>
-                    </div>
-                    <span className="text-xl font-[950] tracking-tighter uppercase">SalesGen<span className="text-brand-red">AI</span></span>
-                </div>
+                <Link href="/" className="flex items-center space-x-3 group">
+                    <ApplicationLogo className="w-10 h-10" />
+                </Link>
 
                 <div className="flex items-center space-x-8">
                     {auth.user ? (
