@@ -103,28 +103,30 @@
     <body class="antialiased font-sans {{ $t['bg_body'] }} {{ $t['text_main'] }} min-h-screen">
         <!-- Navigation -->
         <nav class="{{ $t['bg_card'] }} border-b {{ $t['border'] }} py-4 px-6 fixed w-full z-50 top-0 shadow-sm {{ $isFuture ? 'bg-opacity-80 backdrop-blur-xl' : '' }}">
-            <div class="max-w-7xl mx-auto flex justify-between items-center">
-                <div class="font-[900] text-xl {{ $t['primary_text'] }} uppercase tracking-tighter">{{ $salesPage->product->name }}</div>
-                <div class="hidden md:flex space-x-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
-                    <a href="#benefits">Benefits</a>
-                    <a href="#features">Features</a>
-                    <a href="#faq">FAQ</a>
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="font-[900] text-xl {{ $t['primary_text'] }} uppercase tracking-tighter text-center sm:text-left break-words max-w-full">{{ $salesPage->product->name }}</div>
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:flex space-x-6 text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
+                        <a href="#benefits">Benefits</a>
+                        <a href="#features">Features</a>
+                        <a href="#faq">FAQ</a>
+                    </div>
+                    <a href="#pricing" class="{{ $t['primary'] }} {{ $isFuture ? 'text-black' : 'text-white' }} px-6 py-2.5 rounded-full font-black {{ $t['primary_hover'] }} transition-all text-[10px] uppercase tracking-widest whitespace-nowrap">Get Started</a>
                 </div>
-                <a href="#pricing" class="{{ $t['primary'] }} {{ $isFuture ? 'text-black' : 'text-white' }} px-6 py-2 rounded-full font-black {{ $t['primary_hover'] }} transition-all text-[10px] uppercase tracking-widest">Get Started</a>
             </div>
         </nav>
 
         <!-- Hero Section -->
-        <section class="pt-48 pb-32 px-6 {{ $t['bg_hero'] }} relative overflow-hidden text-center">
+        <section class="pt-40 lg:pt-48 pb-20 lg:pb-32 px-4 lg:px-6 {{ $t['bg_hero'] }} relative overflow-hidden text-center">
             @if($isFuture)
                 <div style="background: radial-gradient(circle at center, rgba(6, 182, 212, 0.1), transparent); position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
             @endif
             
             <div class="max-w-5xl mx-auto relative z-10">
-                <h1 class="text-5xl md:text-8xl font-[950] tracking-tighter mb-8 leading-[0.9] uppercase">
+                <h1 class="text-4xl md:text-7xl font-[950] tracking-tighter mb-8 leading-[0.95] uppercase">
                     {{ $salesPage->content['headline'] }}
                 </h1>
-                <p class="text-xl md:text-2xl {{ $t['text_muted'] }} mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+                <p class="text-lg md:text-2xl {{ $t['text_muted'] }} mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
                     {{ $salesPage->content['sub_headline'] }}
                 </p>
                 <div class="flex justify-center">
@@ -136,13 +138,13 @@
         </section>
 
         <!-- Problem & Solution -->
-        <section class="py-32 px-6">
-            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 text-left">
-                <div class="{{ $salesPage->theme === 'luxury' || $isFuture ? 'bg-red-950/10 border-red-900/30 text-red-200' : 'bg-red-50 border-red-100 text-red-700' }} p-12 rounded-[2.5rem] border">
+        <section class="py-16 lg:py-32 px-4 lg:px-6">
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12 text-left">
+                <div class="{{ $salesPage->theme === 'luxury' || $isFuture ? 'bg-red-950/10 border-red-900/30 text-red-200' : 'bg-red-50 border-red-100 text-red-700' }} p-8 lg:p-10 rounded-[2.5rem] border">
                     <h2 class="text-2xl font-black mb-6 uppercase tracking-wider {{ $isFuture ? 'text-red-400' : '' }}">The Problem</h2>
                     <p class="leading-relaxed text-lg font-medium opacity-80">{{ $salesPage->content['problem_statement'] }}</p>
                 </div>
-                <div class="{{ $salesPage->theme === 'luxury' || $isFuture ? 'bg-cyan-950/10 border-cyan-900/30 text-cyan-100' : 'bg-green-50 border-green-100 text-green-700' }} p-12 rounded-[2.5rem] border">
+                <div class="{{ $salesPage->theme === 'luxury' || $isFuture ? 'bg-cyan-950/10 border-cyan-900/30 text-cyan-100' : 'bg-green-50 border-green-100 text-green-700' }} p-8 lg:p-10 rounded-[2.5rem] border">
                     <h2 class="text-2xl font-black mb-6 uppercase tracking-wider {{ $isFuture ? 'text-cyan-400' : '' }}">The Solution</h2>
                     <p class="leading-relaxed text-lg font-medium opacity-80">{{ $salesPage->content['solution_statement'] }}</p>
                 </div>
@@ -150,12 +152,12 @@
         </section>
 
         <!-- Benefits -->
-        <section id="benefits" class="py-32 px-6 {{ $isFuture ? 'bg-[#0d0d10]' : '' }}">
+        <section id="benefits" class="py-16 lg:py-32 px-4 lg:px-6 {{ $isFuture ? 'bg-[#0d0d10]' : '' }}">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl md:text-5xl font-[900] text-center mb-20 uppercase tracking-tighter">Why Choose Us?</h2>
-                <div class="grid md:grid-cols-3 gap-10">
+                <h2 class="text-3xl md:text-5xl font-[900] text-center mb-12 lg:mb-20 uppercase tracking-tighter">Why Choose Us?</h2>
+                <div class="grid md:grid-cols-3 gap-6 lg:gap-10">
                     @foreach($salesPage->content['benefits'] as $benefit)
-                    <div class="{{ $t['bg_card'] }} p-10 rounded-[2rem] border {{ $t['border'] }}">
+                    <div class="{{ $t['bg_card'] }} p-8 lg:p-10 rounded-[2rem] border {{ $t['border'] }}">
                         <div class="w-14 h-14 {{ $t['accent_bg'] }} {{ $t['accent_text'] }} rounded-2xl flex items-center justify-center mb-8">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
@@ -167,18 +169,18 @@
         </section>
 
         <!-- Features -->
-        <section id="features" class="py-32 px-6">
+        <section id="features" class="py-16 lg:py-32 px-4 lg:px-6">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl md:text-5xl font-[900] text-center mb-24 uppercase tracking-tighter">Core Features</h2>
-                <div class="space-y-32">
+                <h2 class="text-3xl md:text-5xl font-[900] text-center mb-16 lg:mb-24 uppercase tracking-tighter">Core Features</h2>
+                <div class="space-y-24 lg:space-y-32">
                     @foreach($salesPage->content['detailed_features'] as $index => $feature)
-                    <div class="flex flex-col {{ $index % 2 == 0 ? 'md:flex-row' : 'md:flex-row-reverse' }} items-center gap-20 text-left">
+                    <div class="flex flex-col {{ $index % 2 == 0 ? 'md:flex-row' : 'md:flex-row-reverse' }} items-center gap-12 lg:gap-20 text-left">
                         <div class="flex-1">
                             <div class="text-[10px] font-black {{ $t['accent_text'] }} uppercase tracking-[0.3em] mb-4">Feature 0{{ $index + 1 }}</div>
-                            <h3 class="text-4xl font-black mb-6 leading-tight">{{ $feature['title'] }}</h3>
-                            <p class="{{ $t['text_muted'] }} text-xl leading-relaxed font-medium">{{ $feature['description'] }}</p>
+                            <h3 class="text-3xl md:text-4xl font-black mb-6 leading-tight">{{ $feature['title'] }}</h3>
+                            <p class="{{ $t['text_muted'] }} text-lg leading-relaxed font-medium">{{ $feature['description'] }}</p>
                         </div>
-                        <div class="flex-1 w-full aspect-video {{ $isFuture ? 'bg-slate-800' : 'bg-gray-100' }} rounded-[3rem] flex items-center justify-center border-4 {{ $t['border'] }} shadow-2xl">
+                        <div class="flex-1 w-full aspect-video {{ $isFuture ? 'bg-slate-800' : 'bg-gray-100' }} rounded-[2.5rem] lg:rounded-[3rem] flex items-center justify-center border-4 {{ $t['border'] }} shadow-2xl">
                              <span class="font-black uppercase tracking-widest text-xs opacity-10">Visual Asset</span>
                         </div>
                     </div>
@@ -188,14 +190,14 @@
         </section>
 
         <!-- Pricing -->
-        <section id="pricing" class="py-40 px-6 relative overflow-hidden">
-            <div class="max-w-2xl mx-auto {{ $t['bg_card'] }} rounded-[3rem] shadow-2xl overflow-hidden border-2 border-{{ str_replace('bg-', '', $t['primary']) }} relative z-10 text-center">
+        <section id="pricing" class="py-24 lg:py-40 px-4 lg:px-6 relative overflow-hidden">
+            <div class="max-w-2xl mx-auto {{ $t['bg_card'] }} rounded-[2.5rem] lg:rounded-[3rem] shadow-2xl overflow-hidden border-2 border-{{ str_replace('bg-', '', $t['primary']) }} relative z-10 text-center">
                 <div class="{{ $t['primary'] }} py-6 px-10 text-{{ $isFuture ? 'black' : 'white' }} font-black uppercase tracking-[0.2em] text-xs">
                     Limited Time Offer
                 </div>
-                <div class="p-16">
+                <div class="p-8 lg:p-16">
                     <h2 class="text-3xl font-black mb-6">{{ $salesPage->product->name }}</h2>
-                    <div class="text-7xl font-black mb-10 tracking-tighter">
+                    <div class="text-6xl md:text-7xl font-black mb-10 tracking-tighter">
                         <span class="text-3xl font-bold opacity-30 mr-2">Rp</span>{{ number_format($salesPage->product->price, 0, ',', '.') }}
                     </div>
                     <ul class="text-left space-y-6 mb-12">
@@ -206,7 +208,7 @@
                         </li>
                         @endforeach
                     </ul>
-                    <a href="#" class="block w-full {{ $t['primary'] }} text-{{ $isFuture ? 'black' : 'white' }} py-6 rounded-[2rem] text-2xl font-black {{ $t['primary_hover'] }} transition-all uppercase tracking-widest">
+                    <a href="#" class="block w-full {{ $t['primary'] }} text-{{ $isFuture ? 'black' : 'white' }} py-6 lg:py-8 rounded-[2rem] text-2xl font-black {{ $t['primary_hover'] }} transition-all uppercase tracking-widest">
                         {{ $salesPage->content['cta_text'] }}
                     </a>
                 </div>
@@ -214,12 +216,12 @@
         </section>
 
         <!-- FAQ -->
-        <section id="faq" class="py-32 px-6">
+        <section id="faq" class="py-16 lg:py-32 px-4 lg:px-6">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-4xl md:text-5xl font-[900] text-center mb-20 uppercase tracking-tighter">Common Questions</h2>
-                <div class="grid gap-8 text-left">
+                <h2 class="text-3xl md:text-5xl font-[900] text-center mb-12 lg:mb-20 uppercase tracking-tighter">Common Questions</h2>
+                <div class="grid gap-6 lg:gap-8 text-left">
                     @foreach($salesPage->content['faq'] as $faq)
-                    <div class="{{ $t['bg_card'] }} p-10 rounded-[2rem] border {{ $t['border'] }}">
+                    <div class="{{ $t['bg_card'] }} p-8 lg:p-10 rounded-[2rem] border {{ $t['border'] }}">
                         <h3 class="text-xl font-black mb-4 flex items-center uppercase tracking-tight">
                             <span class="w-8 h-8 rounded-lg {{ $t['accent_bg'] }} {{ $t['accent_text'] }} flex items-center justify-center mr-4 text-xs font-black">Q</span>
                             {{ $faq['question'] }}
@@ -231,7 +233,7 @@
             </div>
         </section>
 
-        <footer class="py-20 px-6 border-t {{ $t['border'] }} text-center opacity-50">
+        <footer class="py-20 px-4 lg:px-6 border-t {{ $t['border'] }} text-center opacity-50">
             <div class="font-[900] text-xl mb-4 tracking-tighter {{ $t['primary_text'] }} uppercase">{{ $salesPage->product->name }}</div>
             <p class="text-[10px] font-black uppercase tracking-[0.3em]">&copy; {{ date('Y') }} All Rights Reserved.</p>
         </footer>
