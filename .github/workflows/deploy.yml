@@ -29,7 +29,7 @@ jobs:
 
       - name: Install NPM Dependencies & Build
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Prepare Deployment
@@ -42,18 +42,12 @@ jobs:
       - name: Deploy to VPS via Rsync
         uses: Burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avzr --delete
+          switches: -rlz --delete --exclude=.env --exclude=storage/ --exclude=bootstrap/cache/ --exclude=.git/ --exclude=.gitignore
           path: ./
           remote_path: ${{ secrets.STAGING_PATH }}
           remote_host: ${{ secrets.REMOTE_HOST }}
           remote_user: ${{ secrets.REMOTE_USER }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Abaikan folder yang tidak boleh tertimpa (storage, .env)
-          exclude: |
-            .env
-            storage/
-            .git/
-            .gitignore
 
       - name: Post-deployment Commands
         uses: appleboy/ssh-action@master

@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 
 export default function GuestLayout({ children }) {
     return (
@@ -8,10 +9,7 @@ export default function GuestLayout({ children }) {
                 <div className="w-full max-w-sm mx-auto lg:w-96">
                     <div className="mb-12">
                         <Link href="/" className="inline-flex items-center space-x-3 group">
-                            <div className="w-12 h-12 bg-brand-dark rounded-[1rem] flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg shadow-brand-dark/20">
-                                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            </div>
-                            <span className="text-2xl font-[950] tracking-tighter text-brand-dark uppercase">SalesGen<span className="text-brand-red">AI</span></span>
+                            <ApplicationLogo className="w-16 h-16" />
                         </Link>
                     </div>
 
